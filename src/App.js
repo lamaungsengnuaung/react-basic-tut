@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
-
+import Accordion from './Accordion';
+import { useState } from 'react';
+import './Accordion.css';
+import Profile from './Profile'
 function App() {
+  const [openAccordionId, setopenAccordionId] = useState(null);
+
+  const handleAccordionClick = (accordionId) => {
+    setopenAccordionId((preValue) => {
+      return preValue === accordionId ?  null : accordionId
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Accordion
+        id='my-profile'
+        labelText='my profile'
+        open={openAccordionId === 'my-profile'}
+        onClick={handleAccordionClick}
+      >
+      <Profile/>
+      </Accordion>
+
+      <Accordion
+        id='my-hobbies'
+        labelText='my hobbies'
+        open={openAccordionId === 'my-hobbies'}
+        onClick={handleAccordionClick}
+      >
+        second accordion
+      </Accordion>
     </div>
   );
 }
